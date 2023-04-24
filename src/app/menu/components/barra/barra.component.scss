@@ -2,29 +2,59 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
-    margin: 0;
     list-style: none;
   }
-  
+
+  #navbar{
+    margin-top:-100px;
+    height: 50px;
+    padding-left: 50px;
+    width: 100%;
+    position: fixed;
+  background: linear-gradient(to right, rgba(71, 115, 178, 255), rgba(105, 188, 187, 255));
+    display: inline-flex;
+  }
+
+.botonesjuntos{
+  display: inline-flex;
+  margin:-20px;
+}
+
+.botonalejado{
+  padding-right: -300px;
+}
+
+  .Content-items{
+    display: inline-flex;
+  }
+
+  a {
+    color: white;
+  }
+
+ button {
+    color: white;
+  }
+
+
   .menu li {
     flex-grow: 1;
     text-align: center;
   }
-  
+
   .menu li a {
     display: block;
     padding: 1rem;
     text-decoration: none;
     color: #000;
   }
-  
+
   @media screen and (max-width: 768px) {
     .menu {
       flex-direction: column;
       justify-content: center;
     }
-  
+
     .menu li {
       flex-grow: 0;
       width: 100%;

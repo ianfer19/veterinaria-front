@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent {
 
-  constructor (private authService: AuthService){}
+  constructor (private authService: AuthService, private cookieService: CookieService, private router: Router){}
 
   auth :Auth={
     email: '',
@@ -24,7 +24,8 @@ export class AuthComponent {
 
   login(form:NgForm){
   this.authService.login(this.auth)
-  .subscribe(data => localStorage.setItem('token', data.token));
-  this.authService.login(this.auth)
+  .subscribe(response =>{
+    this.router.navigate(['/pacientes']);
+  });
 }
 }

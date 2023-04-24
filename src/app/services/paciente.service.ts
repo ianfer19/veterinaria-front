@@ -6,13 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PacienteService {
+
   private apiServerUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
 
   getAllPaciente(){
-    return this.http.get<Paciente>(`${this.apiServerUrl}/paciente`)
+    return this.http.get<any>(`${this.apiServerUrl}/paciente`)
+  }
+
+  getPaciente(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiServerUrl}/paciente/${id}`);
   }
 
   addPaciente(paciente: Paciente){
@@ -21,6 +27,10 @@ export class PacienteService {
 
   updatePaciente(paciente: Paciente){
     return this.http.put<Paciente>(`${this.apiServerUrl}/paciente`, paciente)
+  }
+
+  exportAll(){
+    return this.http.get<any>(`${this.apiServerUrl}/export/all`)
   }
 
 }

@@ -1,30 +1,130 @@
-<table class="table">
-  <thead>
+<div style="width:800px; margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
+
+<div class="botonesinline">
+<div style="display:inline-block" >
+
+  <div class="exportimport">
+
+    <div class="bobonesexport">
+      <input class="inputimport" type="file" (change)="importDataFromExcel($event)" accept=".xlsx">
+    </div>
+    <div class="classbuttonimport">
+      <button style="margin-right: 20px;" class="buttonimport" (click)="importDataToApi()" class="btn btn-primary">Enviar</button>
+    </div>
+    <div>
+      <button class="buttonexport" (click)="exportToExcel()" type="submit">Exportar</button>
+    </div>
+</div>
+
+
+
+
+    <div class="busqueda">
+      <input id="inputbusqueda" type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="cambiarBusqueda()">
+      <select [(ngModel)]="opcionSeleccionada" (ngModelChange)="cambiarBusqueda()">
+        <option value="id">ID</option>
+        <option value="nombre">Nombre</option>
+        <option value="especie">Especie</option>
+        <option value="raza">Raza</option>
+        <option value="nacimiento">Fecha de nacimiento</option>
+        <option value="idPer">ID de persona</option>
+        <option value="fechaRegistro">Fecha de registro</option>
+      </select>
+    </div>
+
+</div>
+</div>
+    <div>
+  <table class="table table-hover">
+    <thead style="background-color: rgb(15, 15, 15);" class="thead-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Raza</th>
+          <th>Nacimiento</th>
+          <th>Dueño</th>
+          <th>Fecha de Registro</th>
+          <button id="botonañadir" type="button" class="btn btn-primary" data-toggle="modal" (click)="open(content)">Agregar paciente</button>
+        </tr>
+      </thead>
+  <tbody  *ngFor="let item of resultados" >
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>{{item.nombre}}</td>
+      <td>{{item.especie}}</td>
+      <td>{{item.raza}}</td>
+      <td>{{item.nacimiento}}</td>
+      <td>{{item.idPer}}</td>
+      <td>{{item.fechaRegistro}}</td>
+      <button type="button" class="btn btn-primary" data-toggle="modal" (click)="editar(item)" (click)="openEdit(content)">Editar paciente</button>
     </tr>
   </tbody>
 </table>
+</div>
+
+
+
+<ng-template class="template" #content let-c="close" let-d="dismiss">
+  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)" errorTailor>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Sprint</h4>
+          <button (click)="refresh()" type="button" class="btn-close" aria-label="Close"
+              (click)="d('Cross click')"></button>
+      </div>
+
+
+      <div class="modal-body">
+          <div class="cont-nombre">
+              <mat-icon id="icon-client">Nombre</mat-icon>
+              <input class="controls" type="text" formControlName="nombre" placeholder="Ingrese nombre del paciente">
+          </div>
+          <div class="cont-nombre">
+            <mat-icon id="icon-client">Especie</mat-icon>
+            <input class="controls" type="text" formControlName="especie" placeholder="Ingrese la especie del paciente">
+        </div>
+        <div class="cont-nombre">
+          <mat-icon id="icon-client">Raza</mat-icon>
+          <input class="controls" type="text" formControlName="raza" placeholder="Ingrese la raza del paciente">
+      </div>
+
+          <br>
+          <div>
+              <div id="fecha-ini">
+                <abbr title="Desde">
+                  <mat-icon id="icon-client">calendar_today</mat-icon>
+                  <input placeholder="Fecha nacimiento" onfocus="(this.type = 'date')" onfocusout="(this.type='text')" id="start" class="fecha-ini" type="text" formControlName="nacimiento" >
+                </abbr>
+              </div>
+              <br>
+              <div class="cont-nombre">
+                <mat-icon id="icon-client">numero</mat-icon>
+                <input class="controls" type="text" formControlName="idPer" placeholder="Ingrese la cedula del dueño del paciente">
+            </div>
+              <div id="fecha-fin">
+                <abbr title="Hasta">
+                  <mat-icon id="icon-client">calendar_today</mat-icon>
+                  <input placeholder="Fecha fin" onfocus="(this.type = 'date')" onfocusout="(this.type='text')" id="finish" class="fecha-fin" type="text" formControlName="fechaRegistro" placeholder="Fecha del día del registro" >
+                </abbr>
+              </div>
+              <br>
+          </div>
+          <br>
+      </div>
+
+      <div class="modal-footer">
+          <button mat-icon type="submit" class="save-exit" (click)="d('Cross click')" [disabled]="myForm.invalid">
+              <abbr title="Guardar y salir">
+                  <mat-icon id="icon-button">save subdirectory_arrow_right</mat-icon>
+              </abbr>
+          </button>
+          <button (click)="refresh()" class="close" type="button" (click)="d('Cross click')">
+              Cancelar
+          </button>
+      </div>
+  </form>
+</ng-template>
+
+
+
+
+
+
