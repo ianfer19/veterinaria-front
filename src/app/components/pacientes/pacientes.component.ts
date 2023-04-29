@@ -34,18 +34,7 @@ export class PacientesComponent  implements OnInit, OnDestroy {
   opcionSeleccionada = 'id';
   termino = '';
   textoBusqueda!: string;
-
-  opcionesBusqueda = [
-    { valor: 'id', texto: 'ID' },
-    { valor: 'nombre', texto: 'Nombre' },
-    { valor: 'especie', texto: 'Especie' },
-    { valor: 'raza', texto: 'Raza' },
-    { valor: 'nacimiento', texto: 'Fecha de nacimiento' },
-    { valor: 'idPer', texto: 'ID del propietario' },
-    { valor: 'fechaRegistro', texto: 'Fecha de registro' }
-  ];
-
-
+  tipo:any;
   ngOnInit(){
     this.myForm = this.fb.group({
       id: [''],
@@ -64,10 +53,12 @@ export class PacientesComponent  implements OnInit, OnDestroy {
     this.pacienteService.getAllPaciente()
     .subscribe(data => {this.dataPaciente = data.data;
       this.resultados=this.dataPaciente;
+
       });
     });
     this.buscar();
     this.textoBusqueda = "";
+
   }
 
   ngOnDestroy(): void {
@@ -84,7 +75,7 @@ openEdit(content: any) {
 }
 
 onEdit() {
-  this.router.navigate(['/asignacion-de-colaboradores']);
+  this.router.navigate(['/pacientes']);
 }
 
 guardar(form: FormGroup) {
@@ -136,7 +127,7 @@ refresh() {
     let arraySprint: Array<Paciente> = [];
     this.pacienteService.getAllPaciente()
       .subscribe(datos => {
-        this.dataPaciente = datos.data;
+        this.resultados = datos.data;
       });
 }
 
@@ -190,18 +181,26 @@ importDataToApi(): void {
   for (const item of this.enviarData) {
     if(item.id==undefined && item.nombre==undefined && item.especie==undefined){
           alert("Los datos están erroneos");
-    }else if (item.id!=undefined){
+    }
+    if(item.id!=undefined){
       this.pacienteService.getPaciente(item.id).subscribe(
         (response) => {
-          this.pacienteService.updatePaciente(item).subscribe();
+          this.tipo=response.data;
+            console.log(this.tipo)
+          if(response.data===null){
+            console.log(item)
+            this.pacienteService.addPaciente(item).subscribe();
+            this.refresh();
+          }else{
+            console.log(item)
+            this.pacienteService.updatePaciente(item).subscribe();
+            this.refresh();
+          }
         });
-    }else{
-      item.id=0;
-      this.pacienteService.addPaciente(item).subscribe();
+        console.log(this.tipo)
     }
-    this.refresh();
   }
-
+  this.refresh();
 }
 
 buscar() {

@@ -36,7 +36,8 @@
 </div>
     <div>
   <table class="table table-hover">
-    <thead style="background-color: rgb(15, 15, 15);" class="thead-light">
+    <thead class="thead-light">
+      <h1 class="modal-title" id="modal-basic-title">Pacientes</h1>
         <tr>
           <th>Nombre</th>
           <th>Especie</th>
@@ -66,23 +67,19 @@
 <ng-template class="template" #content let-c="close" let-d="dismiss">
   <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)" errorTailor>
       <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Sprint</h4>
-          <button (click)="refresh()" type="button" class="btn-close" aria-label="Close"
-              (click)="d('Cross click')"></button>
       </div>
-
-
+      <h4 class="modal-title" id="modal-basic-title">Pacientes</h4>
       <div class="modal-body">
           <div class="cont-nombre">
-              <mat-icon id="icon-client">Nombre</mat-icon>
+              <mat-icon id="icon-client"></mat-icon>
               <input class="controls" type="text" formControlName="nombre" placeholder="Ingrese nombre del paciente">
           </div>
           <div class="cont-nombre">
-            <mat-icon id="icon-client">Especie</mat-icon>
+            <mat-icon id="icon-client"></mat-icon>
             <input class="controls" type="text" formControlName="especie" placeholder="Ingrese la especie del paciente">
         </div>
         <div class="cont-nombre">
-          <mat-icon id="icon-client">Raza</mat-icon>
+          <mat-icon id="icon-client"></mat-icon>
           <input class="controls" type="text" formControlName="raza" placeholder="Ingrese la raza del paciente">
       </div>
 
@@ -96,7 +93,7 @@
               </div>
               <br>
               <div class="cont-nombre">
-                <mat-icon id="icon-client">numero</mat-icon>
+                <mat-icon id="icon-client"></mat-icon>
                 <input class="controls" type="text" formControlName="idPer" placeholder="Ingrese la cedula del dueño del paciente">
             </div>
               <div id="fecha-fin">

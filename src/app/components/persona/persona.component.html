@@ -1,1 +1,109 @@
-<p>persona works!</p>
+<div style="width:800px; margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
+
+  <div class="botonesinline">
+  <div style="display:inline-block" >
+
+    <div class="exportimport">
+
+
+
+
+
+      <div class="busqueda">
+        <input id="inputbusqueda" type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="cambiarBusqueda()">
+        <select [(ngModel)]="opcionSeleccionada" (ngModelChange)="cambiarBusqueda()">
+          <option value="id">Identificación</option>
+          <option value="nombre">Nombre</option>
+          <option value="especie">Especie</option>
+          <option value="raza">Raza</option>
+          <option value="nacimiento">Fecha de nacimiento</option>
+          <option value="idPer">ID de persona</option>
+          <option value="fechaRegistro">Fecha de registro</option>
+        </select>
+      </div>
+
+  </div>
+  </div>
+      <div>
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <h1 class="modal-title" id="modal-basic-title">Personas</h1>
+          <tr>
+            <th>identificación</th>
+            <th>Nombre</th>
+            <th>Tipo identificación</th>
+            <th>Ciudad</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <button id="botonañadir" type="button" class="btn btn-primary" data-toggle="modal" (click)="open(content)">Agregar persona</button>
+          </tr>
+        </thead>
+    <tbody  *ngFor="let item of resultados" >
+      <tr>
+        <td>{{item.identificacion}}</td>
+        <td>{{item.nombre}}</td>
+        <td>{{item.tipoId}}</td>
+        <td>{{item.ciudad}}</td>
+        <td>{{item.direccion}}</td>
+        <td>{{item.telefono}}</td>
+        <button type="button" class="btn btn-primary" data-toggle="modal" (click)="editar(item)" (click)="openEdit(content)">Editar persona</button>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+
+  <ng-template class="template" #content let-c="close" let-d="dismiss">
+    <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)" errorTailor>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Persona</h4>
+        </div>
+        <div class="modal-body">
+                        <br>
+              <div class="cont-nombre">
+                <mat-icon id="icon-client">numero</mat-icon>
+                <input class="controls" type="text" formControlName="identificacion" placeholder="Ingrese la cedula de la persona">
+            </div>
+            <div class="cont-nombre">
+                <mat-icon id="icon-client">edit_attributes</mat-icon>
+                <input class="controls" type="text" formControlName="nombre" placeholder="Ingrese nombre de la persona">
+            </div>
+            <div class="cont-nombre">
+              <mat-icon id="icon-client">edit_attributes</mat-icon>
+              <input class="controls" type="text" formControlName="tipoId" placeholder="Ingrese el tipo de identificación de la persona">
+          </div>
+          <div class="cont-nombre">
+            <mat-icon id="icon-client">edit_attributes</mat-icon>
+            <input class="controls" type="text" formControlName="ciudad" placeholder="Ingrese ciudad de la persona">
+            <div class="cont-nombre">
+              <mat-icon id="icon-client">edit_attributes</mat-icon>
+              <input class="controls" type="text" formControlName="direccion" placeholder="Ingrese la direccion de la persona">
+          </div>
+          <div class="cont-nombre">
+            <mat-icon id="icon-client">edit_attributes</mat-icon>
+            <input class="controls" type="text" formControlName="telefono" placeholder="Ingrese el telefono de la persona">
+        </div>
+        </div>
+
+            <br>
+            <div>
+                <br>
+
+                <br>
+            </div>
+            <br>
+        </div>
+
+        <div class="modal-footer">
+            <button mat-icon type="submit" class="save-exit" (click)="d('Cross click')" [disabled]="myForm.invalid">
+                <abbr title="Guardar">
+                    <mat-icon id="icon-button">Guardar</mat-icon>
+                </abbr>
+            </button>
+            <button (click)="refresh()" class="close" type="button" (click)="d('Cross click')">
+                Cancelar
+            </button>
+        </div>
+    </form>
+  </ng-template>

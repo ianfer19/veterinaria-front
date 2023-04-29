@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Auth } from '../interfaces/Auth';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   private apiServerUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, public jwtHelper: JwtHelperService) { }
 
   login(auth: any){
     return this.http.post<any>(`${this.apiServerUrl}/auth/authenticate`, auth, {
@@ -33,17 +34,15 @@ export class AuthService {
   }
 
 
-  ValidarToken(){
-    const parametro = localStorage.getItem('token');
-    const url = `http://localhost:8080/api/auth/token?token=${parametro}`;
-    let valido=undefined;
-this.http.get(url).subscribe((resultado) => {
-    valido=resultado;
-    if(valido===false){
-        localStorage.removeItem('token')
-        this.router.navigate(['/login']);
-    }
-});
-  }
+  ValidarToken(parametro:string){
+    return this.http.get(`http://localhost:8080/api/auth/token?token=${parametro}`,{
+      observe: 'response'
+    }).pipe(map((response:HttpResponse<any>) =>{
+      const body= response.body;
+      localStorage.setItem('tokenValid', body);
+      console.log(body)
+      return body;
+    }))
+}
 }
 

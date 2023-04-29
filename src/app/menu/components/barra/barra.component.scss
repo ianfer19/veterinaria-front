@@ -6,13 +6,26 @@
   }
 
   #navbar{
-    margin-top:-100px;
     height: 50px;
     padding-left: 50px;
     width: 100%;
     position: fixed;
   background: linear-gradient(to right, rgba(71, 115, 178, 255), rgba(105, 188, 187, 255));
     display: inline-flex;
+  }
+
+  .navbarUl {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .navbarUl li {
+    width: calc(50% - 10px);
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
   }
 
 .botonesjuntos{
@@ -61,3 +74,27 @@
       text-align: center;
     }
   }
+
+
+  .toolbar-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .header-toolbar {
+    padding: 0px 2px;
+    background: linear-gradient(to right, rgba(71, 115, 178, 255), rgba(105, 188, 187, 255));
+    position: fixed;
+    z-index: 2;
+    height: 50px;
+    margin-top: 30px;
+  }
+
+#navbarnav{
+  justify-content: center;
+}

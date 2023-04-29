@@ -21,12 +21,20 @@ export class PacienteService {
     return this.http.get<any>(`${this.apiServerUrl}/paciente/${id}`);
   }
 
+  getPacienteExist(id: number): Observable<boolean>{
+    return this.http.get<any>(`${this.apiServerUrl}/paciente-exist/${id}`);
+  }
+
   addPaciente(paciente: Paciente){
     return this.http.post<Paciente>(`${this.apiServerUrl}/paciente`, paciente)
   }
 
   updatePaciente(paciente: Paciente){
     return this.http.put<Paciente>(`${this.apiServerUrl}/paciente`, paciente)
+  }
+
+  getPacientePersona(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiServerUrl}/paciente-persona/${id}`);
   }
 
   exportAll(){

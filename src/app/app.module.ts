@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { PersonaComponent } from './components/persona/persona.component';
+import { PersonaPacienteComponent } from './components/persona-paciente/persona-paciente.component';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorInterceptor } from './interceptors/jwt-interceptor.interceptor';
@@ -18,12 +19,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { MenuModule } from './menu/menu.module'
 import { CoreModule } from './core/core.module';
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PacientesComponent,
     PersonaComponent,
+    PersonaPacienteComponent,
     LayoutComponent
   ],
   imports: [
@@ -39,11 +43,18 @@ import { CoreModule } from './core/core.module';
     MatIconModule,
     NgxFileDropModule,
     MenuModule,
-    CoreModule
+    CoreModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        allowedDomains: ['localhost:4200'],
+        disallowedRoutes: ['localhost:4200/login']
+      }
+    })
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true}
+    provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

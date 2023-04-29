@@ -4,6 +4,7 @@ import { AuthComponent } from './login/components/auth/auth.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { GuardAuthGuard } from './guards/guard-auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
+import { PersonaComponent } from './components/persona/persona.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
         path: 'pacientes',
         canActivate: [GuardAuthGuard],
         component: PacientesComponent
+      },
+      {
+        path: 'personas',
+        canActivate: [GuardAuthGuard],
+        component: PersonaComponent
       }
     ]
   },
