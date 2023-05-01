@@ -1,4 +1,4 @@
-<div style="width:800px; margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
+<div style="width:70%;  margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
 
   <div class="botonesinline">
   <div style="display:inline-block" >
@@ -40,7 +40,9 @@
         </thead>
     <tbody  *ngFor="let item of resultados" >
       <tr>
-        <td>{{item.identificacion}}</td>
+        <td>{{item.identificacion}}
+          <button (click)="mostrar(item)" class="btn btn-primary">Mascotas</button>
+        </td>
         <td>{{item.nombre}}</td>
         <td>{{item.tipoId}}</td>
         <td>{{item.ciudad}}</td>

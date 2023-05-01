@@ -225,5 +225,8 @@ cambiarBusqueda() {
   this.buscar();
 }
 
+mostrar(datos: { idPer: any;}) {
+  this.router.navigate(["personas-pacientes"], { queryParams: { identificacion: datos.idPer} });
+}
 
 }

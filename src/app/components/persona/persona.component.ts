@@ -146,4 +146,9 @@ buscar() {
 cambiarBusqueda() {
   this.buscar();
 }
+
+mostrar(datos: { identificacion: any;}) {
+  this.router.navigate(["personas-pacientes"], { queryParams: { identificacion: datos.identificacion} });
+}
+
 }

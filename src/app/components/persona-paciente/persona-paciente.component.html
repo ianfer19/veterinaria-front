@@ -1,1 +1,124 @@
-<p>persona-paciente works!</p>
+<div style="width:70%;  margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
+
+
+
+
+
+
+  <div class="botonesinline">
+  <div style="display:inline-block" >
+<div  >
+    <div  class="card" style="width: 18rem;">
+      <h4 class="modal-title" id="modal-basic-title">Persona</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Identificación: {{dataPersona.identificacion}}</li>
+        <li class="list-group-item">Nombre: {{dataPersona.nombre}}</li>
+        <li class="list-group-item">Tipo Identificación {{dataPersona.tipoId}}</li>
+        <li class="list-group-item">Ciudad: {{dataPersona.ciudad}}</li>
+        <li class="list-group-item">Dirección: {{dataPersona.direccion}}</li>
+        <li class="list-group-item">Telefono: {{dataPersona.telefono}}</li>
+      </ul>
+    </div>
+  </div>
+
+      <div class="busqueda">
+        <input id="inputbusqueda" type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="cambiarBusqueda()">
+        <select [(ngModel)]="opcionSeleccionada" (ngModelChange)="cambiarBusqueda()">
+          <option value="id">ID</option>
+          <option value="nombre">Nombre</option>
+          <option value="especie">Especie</option>
+          <option value="raza">Raza</option>
+          <option value="nacimiento">Fecha de nacimiento</option>
+          <option value="idPer">ID de persona</option>
+          <option value="fechaRegistro">Fecha de registro</option>
+        </select>
+      </div>
+
+  </div>
+  </div>
+      <div>
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <h1 style="width: 400%; " class="modal-title" id="modal-basic-title">Mascotas de {{dataPersona.nombre}}</h1>
+        <tr>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Raza</th>
+          <th>Nacimiento</th>
+          <th>Dueño</th>
+          <th>Fecha de Registro</th>
+          <button id="botonañadir" type="button" class="btn btn-primary" data-toggle="modal" (click)="open(content)">Agregar paciente</button>
+        </tr>
+      </thead>
+  <tbody *ngFor="let item of resultados" >
+    <tr>
+      <td>{{item.nombre}}</td>
+      <td>{{item.especie}}</td>
+      <td>{{item.raza}}</td>
+      <td>{{item.nacimiento}}</td>
+      <td>{{item.idPer}}
+      </td>
+      <td>{{item.fechaRegistro}}</td>
+      <button type="button" class="btn btn-primary" data-toggle="modal" (click)="editar(item)" (click)="openEdit(content)">Editar paciente</button>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ng-template class="template" #content let-c="close" let-d="dismiss">
+  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)" errorTailor>
+      <div class="modal-header">
+      </div>
+      <h4 class="modal-title" id="modal-basic-title">Pacientes</h4>
+      <div class="modal-body">
+          <div class="cont-nombre">
+              <mat-icon id="icon-client"></mat-icon>
+              <input class="controls" type="text" formControlName="nombre" placeholder="Ingrese nombre del paciente">
+          </div>
+          <div class="cont-nombre">
+            <mat-icon id="icon-client"></mat-icon>
+            <input class="controls" type="text" formControlName="especie" placeholder="Ingrese la especie del paciente">
+        </div>
+        <div class="cont-nombre">
+          <mat-icon id="icon-client"></mat-icon>
+          <input class="controls" type="text" formControlName="raza" placeholder="Ingrese la raza del paciente">
+      </div>
+
+          <br>
+          <div>
+              <div id="fecha-ini">
+                <abbr title="Desde">
+                  <mat-icon id="icon-client">calendar_today</mat-icon>
+                  <input placeholder="Fecha nacimiento" onfocus="(this.type = 'date')" onfocusout="(this.type='text')" id="start" class="fecha-ini" type="text" formControlName="nacimiento" >
+                </abbr>
+              </div>
+              <br>
+              <div class="cont-nombre">
+                <mat-icon id="icon-client"></mat-icon>
+                <input class="controls" type="text" formControlName="idPer" placeholder="Ingrese la cedula del dueño del paciente">
+            </div>
+              <div id="fecha-fin">
+                <abbr title="Hasta">
+                  <mat-icon id="icon-client">calendar_today</mat-icon>
+                  <input placeholder="Fecha fin" onfocus="(this.type = 'date')" onfocusout="(this.type='text')" id="finish" class="fecha-fin" type="text" formControlName="fechaRegistro" placeholder="Fecha del día del registro" >
+                </abbr>
+              </div>
+              <br>
+          </div>
+          <br>
+      </div>
+
+      <div class="modal-footer">
+          <button mat-icon type="submit" class="save-exit" (click)="d('Cross click')" [disabled]="myForm.invalid">
+              <abbr title="Guardar y salir">
+                  <mat-icon id="icon-button">save subdirectory_arrow_right</mat-icon>
+              </abbr>
+          </button>
+          <button (click)="refresh()" class="close" type="button" (click)="d('Cross click')">
+              Cancelar
+          </button>
+      </div>
+  </form>
+</ng-template>

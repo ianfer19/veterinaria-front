@@ -1,4 +1,4 @@
-<div style="width:800px; margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
+<div style="width:70%; margin-top: 100px; display:inline-flexbox; " class="container pb-5 mb-2" id="main-container">
 
 <div class="botonesinline">
 <div style="display:inline-block" >
@@ -54,7 +54,9 @@
       <td>{{item.especie}}</td>
       <td>{{item.raza}}</td>
       <td>{{item.nacimiento}}</td>
-      <td>{{item.idPer}}</td>
+      <td style="width: 10%;">{{item.idPer}}
+        <button (click)="mostrar(item)" class="btn btn-primary">Datos</button>
+      </td>
       <td>{{item.fechaRegistro}}</td>
       <button type="button" class="btn btn-primary" data-toggle="modal" (click)="editar(item)" (click)="openEdit(content)">Editar paciente</button>
     </tr>
@@ -108,16 +110,16 @@
       </div>
 
       <div class="modal-footer">
-          <button mat-icon type="submit" class="save-exit" (click)="d('Cross click')" [disabled]="myForm.invalid">
-              <abbr title="Guardar y salir">
-                  <mat-icon id="icon-button">save subdirectory_arrow_right</mat-icon>
-              </abbr>
-          </button>
-          <button (click)="refresh()" class="close" type="button" (click)="d('Cross click')">
-              Cancelar
-          </button>
-      </div>
-  </form>
+        <button mat-icon type="submit" class="save-exit" (click)="d('Cross click')" [disabled]="myForm.invalid">
+            <abbr title="Guardar">
+                <mat-icon id="icon-button">Guardar</mat-icon>
+            </abbr>
+        </button>
+        <button (click)="refresh()" class="close" type="button" (click)="d('Cross click')">
+            Cancelar
+        </button>
+    </div>
+</form>
 </ng-template>
 
 

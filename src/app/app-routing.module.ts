@@ -5,6 +5,7 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { GuardAuthGuard } from './guards/guard-auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
 import { PersonaComponent } from './components/persona/persona.component';
+import { PersonaPacienteComponent } from './components/persona-paciente/persona-paciente.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,12 @@ const routes: Routes = [
         path: 'personas',
         canActivate: [GuardAuthGuard],
         component: PersonaComponent
+      }
+      ,
+      {
+        path: 'personas-pacientes',
+        canActivate: [GuardAuthGuard],
+        component: PersonaPacienteComponent
       }
     ]
   },
